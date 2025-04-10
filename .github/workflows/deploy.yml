@@ -4,22 +4,21 @@ on:
   push:
     branches: [main]
 
-jobs: Build-and-Deploy
-  runs-on: ubuntu-latest
+jobs:
+  Build-and-Deploy:
+    runs-on: ubuntu-latest
 
-  steps:
-  - name: Cloner le dépôt
-    uses: actions/checkout@v2
+    steps:
+      - name: Cloner le dépôt
+        uses: actions/checkout@v2
 
-  - name: Installer Node.js
-    uses: actions/setup-node@v3
-    with:
-      node-version: '18'
+      - name: Installer Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
 
-  - name: Installer les dépendances
-    run: npm install
+      - name: Installer les dépendances
+        run: npm install
 
-  
-
-  - name: deploiment sur un VPS avec SSH
-  run: npx vercel --prod --token=${{ secrets.VERCELTOKEN }}
+      - name: Déploiement sur Vercel
+        run: npx vercel --prod --token=${{ secrets.VERCELTOKEN }}
