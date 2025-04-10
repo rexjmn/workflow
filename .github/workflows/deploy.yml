@@ -22,17 +22,4 @@ jobs: Build-and-Deploy
   
 
   - name: deploiment sur un VPS avec SSH
-    uses: appleboy/ssh-action@master
-    with:
-      host: ${{ secrets.SSH_HOST }}
-      username: ${{ secrets.SSH_USER }}
-      key: ${{ secrets.SSH_KEY }}
-      port: ${{ secrets.SSH_PORT }}
-      script: |
-        cd ~/workflow || mkdir ~/workflow && cd ~/workflow
-        git clone https://github.com/${{ github.repository }}.git . || git pull
-        npm install
-        pm2 delete my_api_node || true
-        pm2 start index.js --name my_api_node
-        pm2 save
-        pm2 list
+  run: npx vercel --prod --token=${{ secrets.VERCELTOKEN }}
